@@ -5,54 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GitHub Profil Analizörü</title>
 <style>
-  * { box-sizing: border-box; }
   body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #0d1117; color: #e6edf3;
-    max-width: 760px; margin: 0 auto; padding: 32px 16px;
+    font-family: Verdana, Tahoma, sans-serif;
+    background: #eef2f7;
+    color: #222;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 30px 15px;
   }
-  h1 { text-align: center; margin-bottom: 4px; }
-  .alt-baslik { text-align: center; color: #8b949e; margin-top: 0; }
-  form { display: flex; gap: 8px; margin: 24px 0; }
+  h1 { text-align: center; color: #1f4e79; margin-bottom: 5px; }
+  .alt-baslik { text-align: center; color: #666; margin-top: 0; font-size: 14px; }
+  form { display: flex; gap: 10px; margin: 25px 0; }
   input {
-    flex: 1; padding: 12px; font-size: 16px; border-radius: 8px;
-    border: 1px solid #30363d; background: #161b22; color: #e6edf3;
+    flex: 1; padding: 10px; font-size: 15px;
+    border: 1px solid #aab4c3; border-radius: 4px;
   }
   button {
-    padding: 12px 20px; font-size: 16px; border: none; border-radius: 8px;
-    background: #238636; color: white; cursor: pointer;
+    padding: 10px 18px; font-size: 15px; border: none; border-radius: 4px;
+    background: #1f4e79; color: white; cursor: pointer;
   }
-  button:hover { background: #2ea043; }
+  button:hover { background: #2c6aa3; }
   .kart {
-    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
-    padding: 20px; margin-bottom: 16px;
+    background: white; border-radius: 6px; padding: 18px; margin-bottom: 15px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
   }
-  .profil { display: flex; gap: 20px; align-items: center; }
-  .profil img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid #30363d; }
-  .profil h2 { margin: 0; }
-  .profil a { color: #58a6ff; text-decoration: none; }
-  .bio { color: #8b949e; margin: 6px 0 12px; }
-  .sayilar { display: flex; gap: 18px; flex-wrap: wrap; }
+  .profil { display: flex; gap: 18px; align-items: center; }
+  .profil img { width: 100px; height: 100px; border-radius: 50%; }
+  .profil h2 { margin: 0; color: #1f4e79; }
+  .profil a { color: #2c6aa3; }
+  .bio { color: #555; margin: 6px 0 10px; font-size: 14px; }
+  .sayilar { display: flex; gap: 20px; flex-wrap: wrap; }
   .sayilar div { text-align: center; }
-  .sayilar b { display: block; font-size: 20px; }
-  .sayilar span { color: #8b949e; font-size: 13px; }
-  .hata { color: #f85149; text-align: center; }
-  .yukleniyor { color: #8b949e; text-align: center; }
-  h3 { margin-top: 0; }
-  .repo { padding: 10px 0; border-bottom: 1px solid #21262d; }
+  .sayilar b { display: block; font-size: 18px; }
+  .sayilar span { color: #666; font-size: 12px; }
+  .hata { color: #c0392b; text-align: center; }
+  .yukleniyor { color: #666; text-align: center; }
+  h3 { margin-top: 0; color: #1f4e79; border-bottom: 2px solid #eef2f7; padding-bottom: 6px; }
+  .repo { padding: 8px 0; border-bottom: 1px solid #eee; }
   .repo:last-child { border-bottom: none; }
-  .repo a { color: #58a6ff; font-weight: bold; text-decoration: none; }
-  .repo p { margin: 4px 0; color: #8b949e; font-size: 14px; }
-  .repo small { color: #8b949e; }
-  .dil-satir { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-  .dil-ad { width: 110px; font-size: 14px; }
-  .bar-dis { flex: 1; background: #21262d; border-radius: 6px; height: 14px; overflow: hidden; }
-  .bar-ic { height: 100%; background: #238636; }
-  .yuzde { width: 48px; text-align: right; font-size: 14px; color: #8b949e; }
+  .repo a { color: #2c6aa3; font-weight: bold; }
+  .repo p { margin: 4px 0; color: #555; font-size: 13px; }
+  .repo small { color: #777; }
+  .dil-satir { display: flex; align-items: center; gap: 10px; margin: 7px 0; font-size: 13px; }
+  .dil-ad { width: 100px; }
+  .bar-dis { flex: 1; background: #e3e8ef; height: 12px; border-radius: 3px; }
+  .bar-ic { height: 100%; background: #2c6aa3; border-radius: 3px; }
+  .yuzde { width: 40px; text-align: right; color: #666; }
 </style>
 </head>
 <body>
-  <h1>🔍 GitHub Profil Analizörü</h1>
+  <h1>GitHub Profil Analizörü</h1>
   <p class="alt-baslik">Bir GitHub kullanıcı adı yazın, profilini ve projelerini analiz edelim.</p>
 
   <form id="aramaFormu">
@@ -66,7 +68,7 @@
   const API = "https://api.github.com/users/";
   const sonuc = document.getElementById("sonuc");
 
-  // Kullanıcıdan gelen metni güvenli şekilde ekrana basmak için
+  // API'den gelen yazılar HTML gibi çalışmasın diye düz metne çeviriyorum
   function guvenli(metin) {
     const div = document.createElement("div");
     div.textContent = metin ?? "";
@@ -98,16 +100,16 @@
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
       .slice(0, 5);
 
-    if (enIyi5.length === 0) return `<div class="kart"><h3>⭐ En Popüler Repolar</h3><p>Public repo yok.</p></div>`;
+    if (enIyi5.length === 0) return `<div class="kart"><h3>En Popüler Repolar</h3><p>Public repo yok.</p></div>`;
 
     const liste = enIyi5.map(r => `
       <div class="repo">
         <a href="${r.html_url}" target="_blank">${guvenli(r.name)}</a>
         <p>${guvenli(r.description || "Açıklama yok")}</p>
-        <small>⭐ ${r.stargazers_count} &nbsp; 🍴 ${r.forks_count} &nbsp; ${guvenli(r.language || "")}</small>
+        <small>Yıldız: ${r.stargazers_count} | Fork: ${r.forks_count} | ${guvenli(r.language || "-")}</small>
       </div>`).join("");
 
-    return `<div class="kart"><h3>⭐ En Popüler 5 Repo</h3>${liste}</div>`;
+    return `<div class="kart"><h3>En Popüler 5 Repo</h3>${liste}</div>`;
   }
 
   function dilDagilimi(repolar) {
@@ -118,7 +120,7 @@
     });
 
     const toplam = Object.values(sayac).reduce((a, b) => a + b, 0);
-    if (toplam === 0) return `<div class="kart"><h3>💻 Dil Dağılımı</h3><p>Dil bilgisi yok.</p></div>`;
+    if (toplam === 0) return `<div class="kart"><h3>Dil Dağılımı</h3><p>Dil bilgisi yok.</p></div>`;
 
     const satirlar = Object.entries(sayac)
       .sort((a, b) => b[1] - a[1])
@@ -133,7 +135,7 @@
           </div>`;
       }).join("");
 
-    return `<div class="kart"><h3>💻 Dil Dağılımı</h3>${satirlar}</div>`;
+    return `<div class="kart"><h3>Dil Dağılımı</h3>${satirlar}</div>`;
   }
 
   // ---------------- Arama ----------------
@@ -151,7 +153,7 @@
 
       sonuc.innerHTML = profilKarti(profil) + populerRepolar(repolar) + dilDagilimi(repolar);
     } catch (hata) {
-      sonuc.innerHTML = `<p class="hata">❌ ${guvenli(hata.message)}</p>`;
+      sonuc.innerHTML = `<p class="hata">${guvenli(hata.message)}</p>`;
     }
   }
 

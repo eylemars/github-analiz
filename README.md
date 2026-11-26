@@ -1,34 +1,32 @@
-#  GitHub Profil Analizörü
+# GitHub Profil Analizörü
 
-## Problem ve Hedef Kullanıcı
-İşe alım yapan kişiler, takım liderleri ve staj/iş arayan öğrenciler bir yazılımcının GitHub profilini incelerken repoları tek tek açmak zorunda kalıyor. Kişinin hangi dilleri kullandığı ve hangi projelerinin öne çıktığı hızlıca görülemiyor. Bu uygulamaya bir **GitHub kullanıcı adı** yazmak yeterli. Uygulama **GitHub API** üzerinden profil bilgilerini, en popüler repoları ve dil dağılımını tek ekranda özetliyor.
+## Proje Hakkında
+Bir yazılımcının GitHub profiline bakarken hangi dilleri kullandığını ve hangi projelerinin öne çıktığını görmek için repoları tek tek açmak gerekiyor. Bu proje, kullanıcı adı girilince GitHub API'den bilgileri çekip profil, popüler repolar ve dil dağılımını tek sayfada gösteriyor. Staj/iş arayan öğrenciler, işe alım yapanlar veya başka geliştiricilerin profillerini hızlıca incelemek isteyenler için yaptım.
 
-## Proje Panosu
- [GitHub Projects Panosu](https://github.com/users/eylemars/projects/2)
+## Pano
+https://github.com/users/eylemars/projects/2
 
-## Kullanılan Teknolojiler
-- HTML, CSS, JavaScript (kütüphane yok)
-- [GitHub REST API](https://docs.github.com/en/rest) (API anahtarı gerektirmez)
+## Kullanılanlar
+- HTML, CSS, JavaScript
+- GitHub REST API (anahtar gerektirmiyor)
 
-## Çalıştırma Adımları
-**Seçenek 1: Canlı demo**
- https://eylemars.github.io/github-analiz/
+## Nasıl Çalıştırılır
+Canlı hali: https://eylemars.github.io/github-analiz/
 
-**Seçenek 2: Yerelde çalıştırma**
-1. Depoyu indirin: `git clone https://github.com/eylemars/github-analiz.git`
-2. `index.html` dosyasını tarayıcıda açın.
-3. Kurulum gerekmez. İnternet bağlantısı yeterlidir.
+Bilgisayarda çalıştırmak için:
+1. `git clone https://github.com/eylemars/github-analiz.git`
+2. Klasördeki `index.html` dosyasını tarayıcıda açmak yeterli, kurulum yok.
 
-> Not: GitHub API, anahtarsız kullanımda saatte 60 istek sınırı uygular. Sınır dolarsa uygulama bunu ekranda bildirir.
+Not: GitHub API anahtarsız kullanımda saatte 60 istek sınırı koyuyor. Sınır dolarsa sayfada uyarı çıkıyor.
 
 ## Özellikleri Deneme
 
-### Özellik 1: Profil Kartı
-- Arama kutusuna `torvalds` yazıp **Analiz Et** butonuna basın. Profil fotoğrafı, isim, biyografi, repo ve takipçi sayıları ile katılım yılı görünür.
-- `bu-kullanici-yok-12345xyz` yazın. **"Kullanıcı bulunamadı."** uyarısı çıkar.
-- Kutuyu boş bırakıp butona basın. **"Lütfen bir kullanıcı adı yazın."** uyarısı çıkar.
+### 1. Profil Kartı
+- `torvalds` yazıp Analiz Et'e basınca profil fotoğrafı, isim, biyografi, repo/takipçi sayıları ve katılım yılı görünüyor.
+- Olmayan bir kullanıcı adı (ör. `bu-kullanici-yok-12345xyz`) yazınca "Kullanıcı bulunamadı." uyarısı çıkıyor.
+- Kutu boşken butona basınca "Lütfen bir kullanıcı adı yazın." uyarısı çıkıyor.
 
-### Özellik 2: Repo ve Dil Analizi
-- `torvalds` ya da `musanmaz` aratın. Profil kartının altında şunlar görünür:
-  - **En Popüler 5 Repo:** yıldız sayısına göre büyükten küçüğe sıralanır. Her repoda açıklama, yıldız ve  fork sayısı yer alır.
-  - **Dil Dağılımı:** repolarda kullanılan diller yüzde olarak çubuk grafikle gösterilir.
+### 2. Repo ve Dil Analizi
+- `torvalds` veya `musanmaz` aratınca profilin altında:
+  - Yıldız sayısına göre sıralanmış en popüler 5 repo (açıklama, yıldız ve fork sayısıyla)
+  - Repolarda kullanılan dillerin yüzdelik dağılımı (çubuk grafik)
