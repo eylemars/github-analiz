@@ -92,6 +92,50 @@
       </div>`;
   }
 
+  // ---------------- GÖREV 2: Repo ve dil analizi ----------------
+  function populerRepolar(repolar) {
+    const enIyi5 = [...repolar]
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 5);
+
+    if (enIyi5.length === 0) return `<div class="kart"><h3>⭐ En Popüler Repolar</h3><p>Public repo yok.</p></div>`;
+
+    const liste = enIyi5.map(r => `
+      <div class="repo">
+        <a href="${r.html_url}" target="_blank">${guvenli(r.name)}</a>
+        <p>${guvenli(r.description || "Açıklama yok")}</p>
+        <small>⭐ ${r.stargazers_count} &nbsp; 🍴 ${r.forks_count} &nbsp; ${guvenli(r.language || "")}</small>
+      </div>`).join("");
+
+    return `<div class="kart"><h3>⭐ En Popüler 5 Repo</h3>${liste}</div>`;
+  }
+
+  function dilDagilimi(repolar) {
+    // Her dilin kaç repoda kullanıldığını say
+    const sayac = {};
+    repolar.forEach(r => {
+      if (r.language) sayac[r.language] = (sayac[r.language] || 0) + 1;
+    });
+
+    const toplam = Object.values(sayac).reduce((a, b) => a + b, 0);
+    if (toplam === 0) return `<div class="kart"><h3>💻 Dil Dağılımı</h3><p>Dil bilgisi yok.</p></div>`;
+
+    const satirlar = Object.entries(sayac)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([dil, adet]) => {
+        const yuzde = Math.round((adet / toplam) * 100);
+        return `
+          <div class="dil-satir">
+            <span class="dil-ad">${guvenli(dil)}</span>
+            <div class="bar-dis"><div class="bar-ic" style="width:${yuzde}%"></div></div>
+            <span class="yuzde">%${yuzde}</span>
+          </div>`;
+      }).join("");
+
+    return `<div class="kart"><h3>💻 Dil Dağılımı</h3>${satirlar}</div>`;
+  }
+
   // ---------------- Arama ----------------
   async function analizEt(kullanici) {
     sonuc.innerHTML = `<p class="yukleniyor">Yükleniyor...</p>`;
@@ -102,7 +146,10 @@
       if (!cevap.ok) throw new Error("Bir hata oluştu.");
       const profil = await cevap.json();
 
-      sonuc.innerHTML = profilKarti(profil);
+      const repoCevap = await fetch(API + encodeURIComponent(kullanici) + "/repos?per_page=100");
+      const repolar = repoCevap.ok ? await repoCevap.json() : [];
+
+      sonuc.innerHTML = profilKarti(profil) + populerRepolar(repolar) + dilDagilimi(repolar);
     } catch (hata) {
       sonuc.innerHTML = `<p class="hata">❌ ${guvenli(hata.message)}</p>`;
     }
