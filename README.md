@@ -4,7 +4,7 @@
 İşe alım yapan kişiler, takım liderleri ve staj/iş arayan öğrenciler bir yazılımcının GitHub profilini incelerken repoları tek tek açmak zorunda kalıyor. Kişinin hangi dilleri kullandığı ve hangi projelerinin öne çıktığı hızlıca görülemiyor. Bu uygulamaya bir **GitHub kullanıcı adı** yazmak yeterli. Uygulama **GitHub API** üzerinden profil bilgilerini, en popüler repoları ve dil dağılımını tek ekranda özetliyor.
 
 ## Proje Panosu
- [GitHub Projects Panosu](BURAYA_PANO_LINKI)
+ [GitHub Projects Panosu](https://github.com/users/eylemars/projects/2)
 
 ## Kullanılan Teknolojiler
 - HTML, CSS, JavaScript (kütüphane yok)
